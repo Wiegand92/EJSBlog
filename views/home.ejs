@@ -1,0 +1,7 @@
+<%- include('./partials/header') -%>
+  <h1>HOME</h1>
+  <p><%=homeStartingContent%></p>
+  <%posts.forEach(post => {%>
+    <%- include('partials/post-preview', {post}) -%>
+  <%});%>
+<%- include('./partials/footer') -%>

@@ -1,6 +1,5 @@
 const express = require('express')
 const ejs = require('ejs')
-const mongoose = require('mongoose')
 
 const {Post} = require('./server/db/db')
 
@@ -13,7 +12,7 @@ app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
 
-const posts = [];
+let posts = [];
 
 const homeStartingContent = `Nisi mollit veniam deserunt excepteur veniam culpa labore aliqua tempor eiusmod excepteur in commodo. Officia ex in pariatur incididunt voluptate nisi ad nostrud deserunt consequat proident. In Lorem fugiat sit incididunt ut fugiat reprehenderit consequat minim.
 Dolore fugiat ut officia proident commodo qui. Aute sunt eiusmod velit tempor aliquip nisi pariatur aliquip dolore sunt mollit incididunt enim. Exercitation aliquip occaecat exercitation cupidatat qui in. Sint proident consequat excepteur tempor sint mollit labore. Labore anim tempor non sunt nulla est aliqua fugiat magna non. Elit eiusmod nulla pariatur cupidatat.
@@ -24,6 +23,7 @@ const contactInfo = 'hello world'
 const aboutInfo = 'Alex Wiegand'
 
 app.get('/', async (req, res) => {
+  posts = []
   await Post.find({})
   .then(response => {
     response.forEach(post => posts.push(post))
@@ -50,8 +50,7 @@ app.post('/compose', async (req, res) => {
   const { postBody, postName } = req.body
   const newPost = {
     postName, 
-    postBody,
-    _id: new mongoose.Types.ObjectId()
+    postBody
   }
   const post = new Post(newPost)
   await post.save()

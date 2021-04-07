@@ -1,2 +1,3 @@
-<h2><a href="/posts/<%=post.postLink%>"><%=post.postName%></a></h2>
+<h2><a href="/posts/<%=post._id.toString()%>"><%=post.postName%></a></h2>
+<%=console.log(typeof post._id.toString())%>
 <p><%=post.postBody.substring(0, 100) + '...'%></p>
